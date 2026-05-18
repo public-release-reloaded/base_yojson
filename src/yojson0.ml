@@ -2,9 +2,9 @@ module Safe = struct
   include Yojson.Safe
 
   let compare : t -> t -> int = Base.Poly.compare
-  let compare__local : t -> t -> int = Base.Poly.compare
+  let compare__local : t @ local -> t @ local -> int = Base.Poly.compare
   let equal : t -> t -> bool = Base.Poly.equal
-  let equal__local : t -> t -> bool = Base.Poly.equal
+  let equal__local : t @ local -> t @ local -> bool = Base.Poly.equal
   let sexp_of_t s = Sexplib0.Sexp.Atom (to_string s)
   let yojson_of_t t = t
   let t_of_yojson t = t
