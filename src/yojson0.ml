@@ -22,8 +22,6 @@ module Safe = struct
       | `String of string
       | `Assoc of (string * t) list
       | `List of t list
-      | `Tuple of t list
-      | `Variant of string * t option
       ]
       constraint t = Yojson.Safe.t
     [@@deriving sexp_of]
