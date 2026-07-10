@@ -9,15 +9,15 @@ let () =
   let module Sexp_conv = Sexplib0.Sexp_conv in
   Sexp_conv.Exn_converter.add
     [%extension_constructor Yojson.Safe.Of_yojson_error]
-    (function
-    | Yojson.Safe.Of_yojson_error (v0, v1) ->
-      let v0 =
-        match v0 with
-        | Failure v0 -> Sexplib0.Sexp.Atom v0
-        | v0 -> Sexp_conv.sexp_of_exn v0
-      and v1 = Yojson.Safe.sexp_of_t v1 in
-      Sexplib0.Sexp.(List [ Atom "Of_yojson_error"; v0; v1 ])
-    | _ -> assert false)
+    (Base.Obj.magic_portable (function
+      | Yojson.Safe.Of_yojson_error (v0, v1) ->
+        let v0 =
+          match v0 with
+          | Failure v0 -> Sexplib0.Sexp.Atom v0
+          | v0 -> Sexp_conv.sexp_of_exn v0
+        and v1 = Yojson.Safe.sexp_of_t v1 in
+        Sexplib0.Sexp.(List [ Atom "Of_yojson_error"; v0; v1 ])
+      | _ -> assert false))
 ;;
 
 let () =
